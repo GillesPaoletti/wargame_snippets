@@ -1,10 +1,9 @@
 import random
+
 #first D6 result
 firstD6=random.randint(1,6)
 
 #second D6 result
 secondD6=random.randint(1,6)
 
-#Sum of the 2D6
-print("Sum of the 2D6")
-print(firstD6+secondD6)
+print('The 2D6 result is:'+ ' '+ str(int(firstD6)+int(secondD6)))
