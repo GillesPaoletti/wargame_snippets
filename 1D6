@@ -2,6 +2,4 @@ import random
 #first D6 result
 firstD6=random.randint(1,6)
 
-print("Sum of the 1D6")
-print(firstD6)
-
+print('The 1D6 result is:'+ ' '+ str(int(firstD6)))
