@@ -1,23 +1,107 @@
-#Works in Jupyter Notebook as Pandas installed
-#Creating a CRT table with Ratios, 2D6 and results
-import pandas as pd
-import os
-new_dataframe = pd.DataFrame(
-    {
-        "  1:3  ":['A','B','C','D','E','F','G','H','I','J','K','L'],
-        "  1:2  ":['A','B','C','D','E','F','G','H','I','J','K','L'],
-        "  1:1  ":['A','B','C','D','E','F','G','H','I','J','K','L'],
-        "  2:1  ":['A','B','C','D','E','F','G','H','I','J','K','L'],
-        "  3:1  ":['A','B','C','D','E','F','G','H','I','J','K','L'],
-        "  4:1  ":['A','B','C','D','E','F','G','H','I','J','K','L'],
-        "  5:1  ":['A','B','C','D','E','F','G','H','I','J','K','L'],
-        "  6:1  ":['A','B','C','D','E','F','G','H','I','J','K','L'],
-        "  7:1  ":['A','B','C','D','E','F','G','H','I','J','K','L'],
-        "  8:1  ":['A','B','C','D','E','F','G','H','I','J','K','L'],
-        
-    }
-)
-#by default, the values in the first column start at zero, this line will make it start at 1.
-new_dataframe.index = new_dataframe.index + 1
+#Automating CRT rsolution using ONE D6
+#and combat ratios going from 1/6 to 8/1
+###################################################
+#Sum of the attack factors
+print("Enter the sum of attack factors")
+attack=input()
+print('Attack factors: '+attack)
+#enter a code to ensure this is not left empty
 
-new_dataframe
+###########################################
+
+#Sum of defence factors
+print("Enter the sum of defence factors")
+defence=input()
+print('Defence factors: '+defence)
+#enter a code to ensure this is not left empty
+#enter a code to prevent error in case of division by zero
+
+###########################################
+
+#combat ratio calculations
+ratio=int(attack)/int(defence)
+roundedratio=round(ratio,2)
+print('Combat ratio :'+str(roundedratio))
+
+###########################################
+
+#generate a number between 1 and 6 to simulate the roll of 1D6
+import random
+dicesix = random.randint(1,6)
+print('The result of the 1D6 roll is: '+str(dicesix))
+
+###########################################
+
+#Mapping the 1D6 result to the POSITION of the item in the TUPPLE
+#as the position starts at 0 instead of 1
+dicesixresult=int(dicesix)-1
+print(dicesixresult)
+
+###########################################
+#Lists created for each column in the CRT table
+#there are six values, one for each possible result on a dice
+RatioOnetoSix=['AA1','BB1','CC1','DD1','EE1','FF1']
+RatioOnetoFive=['AA2','BB2','CC2','DD2','EE2','FF2']
+RatioOnetoFour=['AA3','BB3','CC3','DD3','EE3','FF3']
+RatioOnetoThree=['AA4','BB4','CC4','DD4','EE4','FF4']
+RatioOnetoTwo=['AA5','BB5','CC5','DD5','EE5','FF5']
+RatioOnetoOne=['AA6','BB6','CC6','DD6','EE6','FF6']
+RatioTwotoOne=['AA7','BB7','CC7','DD7','EE7','FF7']
+RatioThreetoOne=['AA8','BB8','CC8','DD8','EE8','FF8']
+RatioFourtoOne=['AA9','BB9','CC9','DD9','EE9','FF9']
+RatioFivetoOne=['AA10','BB10','CC10','DD10','EE10','FF10']
+RatioSixtoOne=['AA11','BB11','CC11','DD11','EE11','FF11']
+RatioSeventoOne=['AA12','BB12','CC12','DD12','EE12','FF12']
+RatioEighttoOne=['AA13','BB13','CC13','DD13','EE13','FF13']
+###########################################
+
+#mapping the rounded combat ratio (a float) into the name of a List.
+#The below values were used during the mapping:
+#Outside table - Less than 0.15
+#RatioOnetoSix   [ 0.151 / 0.182 ]
+#RatioOnetoFive   [ 0.183 / 0.224 ]
+#RatioOnetoFour   [ 0.225 / 0.29 ]
+#RatioOnetoThree  [ 0.291 / 0.415 ]
+#RatioOnetoTwo  [ 0.416 / 0.749 ]
+#RatioOnetoOne   [0.75 / 1.49]
+#RatioTwotoOne   [1.5 / 2.49]
+#RatioThreetoOne   [2.5 / 3.49]
+#RatioFourtoOne   [3.5 / 4.49]
+#RatioFivetoOne   [4.5 / 5.49]
+#RatioSixtoOne   [5.5 / 6.49]
+#RatioSeventoOne   [6.5 / 7.49]
+#RatioEighttoOne   [7.5 / 8.49]
+#more than 8 to 1 - use the8/1 table
+
+
+if roundedratio <0.15:
+    print('Outside the CRT table') 
+elif 0.151<roundedratio<0.182:
+    print(RatioOnetoSix[dicesixresult]) 
+elif 0.183<roundedratio<0.224:
+    print(RatioOnetoFive[dicesixresult])
+elif 0.225<roundedratio<0.29:
+    print(RatioOnetoFour[dicesixresult])
+elif 0.291<roundedratio<0.415:
+    print(RatioOnetoThree[dicesixresult])
+elif 0.416<roundedratio<0.749:
+    print(RatioOnetoTwo[dicesixresult]) 
+elif 0.75<roundedratio<1.49:
+    print(RatioOnetoOne[dicesixresult])  
+elif 1.5<roundedratio<2.49:
+    print(RatioTwotoOne[dicesixresult]) 
+elif 2.5<roundedratio<3.49:
+    print(RatioThreetoOne[dicesixresult])
+elif 3.5<roundedratio<4.49:
+    print(RatioFourtoOne[dicesixresult]) 
+elif 4.5<roundedratio<5.49:
+    print(RatioFivetoOne[dicesixresult])
+elif 5.5<roundedratio<6.49:
+    print(RatioSixtoOne[dicesixresult])
+elif 6.5<roundedratio<7.49:
+    print(RatioSeventoOne[dicesixresult])
+elif 7.5<roundedratio<8.49:
+    print(RatioEighttoOne[dicesixresult])
+else:
+    print('Use the highest ratio in the CRT table')
+###########################################
