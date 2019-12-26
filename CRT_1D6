@@ -5,7 +5,6 @@
 print("Enter the sum of attack factors")
 attack=input()
 print('Attack factors: '+attack)
-#enter a code to ensure this is not left empty
 
 ###########################################
 
@@ -13,8 +12,6 @@ print('Attack factors: '+attack)
 print("Enter the sum of defence factors")
 defence=input()
 print('Defence factors: '+defence)
-#enter a code to ensure this is not left empty
-#enter a code to prevent error in case of division by zero
 
 ###########################################
 
