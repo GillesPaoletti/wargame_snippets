@@ -1,0 +1,85 @@
+#Automating combat resolution using ONE D6 and combat ratios going from 1/6 to 8/1
+#then pulling result from a Combat Result Table
+###################################################
+print('This is an example of this snippet, using the CRT from Battle for Moscow (first edition)')
+#Source: https://cf.geekdo-images.com/imagepagezoom/img/st7bdxZ2d7jUWj0rqlFJdKEqcRc=/fit-in/1200x900/filters:no_upscale()/pic602144.jpg
+#put a spacing line
+print ("")
+###################################################
+#User to enter the sum of the attack factors
+print("Enter the sum of attack factors")
+attack=input()
+#Printing a confirmation of the value entered by the user
+print('Attack factors: '+attack)
+###########################################
+#User to enter the sum of the defence factors
+#value cannot be zero, otherwise it will generate an error when calculating the ratio (division by 0)
+print("Enter the sum of defence factors - it cannot be equal to zero")
+defence=input()
+#Printing a confirmation of the value entered by the user
+print('Defence factors: '+defence)
+###########################################
+#This is calculating the combat ratio 
+ratio=int(attack)/int(defence)
+#This is  rounding the value of the ratio
+roundedratio=round(ratio,2)
+print('Combat ratio :'+str(roundedratio))
+###########################################
+#This generates a number between 1 and 6 to simulate the roll of 1D6
+import random
+dicesix = random.randint(1,6)
+print('The result of the 1D6 roll is: '+str(dicesix))
+###########################################
+#Mapping the 1D6 result to the POSITION of the item in the TUPPLE
+#as the position starts at 0 instead of 1
+dicesixresult=int(dicesix)-1
+#print(dicesixresult)
+###########################################
+#Lists created for each COLUMN in the CRT table
+#there are six values, one for each possible result on a dice
+
+RatioOnetoOne=['DR','EX','EX','NE','NE','AL']
+RatioTwotoOne=['DR','DR','EX','EX','NE','NE']
+RatioThreetoOne=['DR','DR','DR','EX','EX','DRL']
+RatioFourtoOne=['DR','DR','EX','DRL','DRL','DE']
+RatioFivetoOne=['DR','DRL','DRL','DRL','DE','DE']
+RatioSixtoOne=['DRL','DRL','DE','DE','DE','DE']
+
+###########################################
+#mapping the rounded combat ratio (a float) into the name of a List.
+#The below values were used during the mapping:
+
+#Outside table - Less than 0.15
+#RatioOnetoSix   [ 0.151 / 0.182 ]
+#RatioOnetoFive   [ 0.183 / 0.224 ]
+#RatioOnetoFour   [ 0.225 / 0.29 ]
+#RatioOnetoThree  [ 0.291 / 0.415 ]
+#RatioOnetoTwo  [ 0.416 / 0.749 ]
+#RatioOnetoOne   [0.75 / 1.49]
+#RatioTwotoOne   [1.5 / 2.49]
+#RatioThreetoOne   [2.5 / 3.49]
+#RatioFourtoOne   [3.5 / 4.49]
+#RatioFivetoOne   [4.5 / 5.49]
+#RatioSixtoOne   [5.5 / 6.49]
+#RatioSeventoOne   [6.5 / 7.49]
+#RatioEighttoOne   [7.5 / 8.49]
+#more than 8 to 1 - use the8/1 table
+
+if roundedratio <0.75:
+    print('Outside the CRT table')
+elif 0.75<roundedratio<1.49:
+    print('The result in the CRT is: '+RatioOnetoOne[dicesixresult])  
+elif 1.5<roundedratio<2.49:
+    print('The result in the CRT is: '+RatioTwotoOne[dicesixresult]) 
+elif 2.5<roundedratio<3.49:
+    print('The result in the CRT is: '+RatioThreetoOne[dicesixresult])
+elif 3.5<roundedratio<4.49:
+    print('The result in the CRT is: '+RatioFourtoOne[dicesixresult])   
+elif 4.5<roundedratio<5.49:
+    print('The result in the CRT is: '+RatioFivetoOne[dicesixresult])
+elif 5.5<roundedratio<6.49:
+    print('The result in the CRT is: '+RatioSixtoOne[dicesixresult])
+else:
+    print('Use the highest ratio in the CRT table')
+###########################################
+
