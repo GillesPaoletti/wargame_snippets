@@ -1,0 +1,9 @@
+print('Enter description of a column shift situation')
+print('Is this situation  applicable?  Type Yes or No')
+player=input()
+print ("")
+if player=='Yes':
+    print('Shift the result in the CRT by x column(s) to the YYYY in the CRT')
+else:
+    print('There is no applicable column shift')
+print ("")
